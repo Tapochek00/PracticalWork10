@@ -30,53 +30,67 @@ namespace PracticalWork10
         ObservableCollection<int> numbers = new ObservableCollection<int>();
         private void btn_Add_Click(object sender, RoutedEventArgs e)
         {
-            
-            int.TryParse(numberOf5.Text, out int valPlus);
-            int.TryParse(numberOfMinus5.Text, out int valMinus);
-
-            if (numberOf5.Text == "")
+            try
             {
-                valMinus = 0;
-                valPlus = 0;
-            }
+                int.TryParse(numberOf5.Text, out int valPlus);
+                int.TryParse(numberOfMinus5.Text, out int valMinus);
 
-            int.TryParse(value.Text, out int val);
-            numbers.Add(val);
-            if(val == 5) valPlus++;
-            else if(val == -5) valMinus++;
-            numberOf5.Text = valPlus.ToString();
-            numberOfMinus5.Text = valMinus.ToString();
+                if (numberOf5.Text == "")
+                {
+                    valMinus = 0;
+                    valPlus = 0;
+                }
+
+                int.TryParse(value.Text, out int val);
+                numbers.Add(val);
+                if (val == 5) valPlus++;
+                else if (val == -5) valMinus++;
+                numberOf5.Text = valPlus.ToString();
+                numberOfMinus5.Text = valMinus.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Fill_Click(object sender, RoutedEventArgs e)
         {
-            int.TryParse(numberOf5.Text, out int valPlus);
-            int.TryParse(numberOfMinus5.Text, out int valMinus);
+            try
+            {
+                int.TryParse(numberOf5.Text, out int valPlus);
+                int.TryParse(numberOfMinus5.Text, out int valMinus);
 
-            if (numberOf5.Text == "")
-            {
-                valMinus = 0;
-                valPlus = 0;
+                if (numberOf5.Text == "")
+                {
+                    valMinus = 0;
+                    valPlus = 0;
+                }
+                Random random = new Random();
+                for (int i = 0; i < 20; i++)
+                {
+                    numbers.Add(random.Next(-10, 10));
+                    if (numbers[numbers.Count-1] == 5) valPlus++;
+                    else if (numbers[numbers.Count - 1] == -5) valMinus++;
+                }
+                numberOf5.Text = valPlus.ToString();
+                numberOfMinus5.Text = valMinus.ToString();
             }
-            Random random = new Random();
-            for (int i = 0; i < 20; i++)
+            catch(Exception ex)
             {
-                numbers.Add(random.Next(-10, 10));
-                if (i == 5) valPlus++;
-                else if (i == -5) valMinus++;
+                MessageBox.Show(ex.Message);
             }
-            numberOf5.Text = valPlus.ToString();
-            numberOfMinus5.Text = valMinus.ToString();
         }
 
         private void about_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Дунаева М.И.\n\nПрактическая работа №10\n\n" +
+                "Дан массив в диапазоне [-10;10] найти количество значений равных 5 и -5.");
         }
 
         private void exit_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
     }
 }
